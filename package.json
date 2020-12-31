@@ -1,0 +1,26 @@
+{
+  "name": "webpack_template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Belartale/webpack_template.git"
+  },
+  "author": "belartale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Belartale/webpack_template/issues"
+  },
+  "homepage": "https://github.com/Belartale/webpack_template#readme",
+  "devDependencies": {
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
+}
