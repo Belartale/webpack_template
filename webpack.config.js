@@ -2,6 +2,7 @@ const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const isDev = process.env.NODE_ENV === "development"; // process.env.NODE_ENV хранит ДЕВ или ПРОДАКШЕН
 const isProd = !isDev;
@@ -12,10 +13,19 @@ const filename = (ext) =>
 module.exports = {
 	context: path.resolve(__dirname, "src"), // папка
 	mode: "development",
-	entry: "./js/main.js", // труба .pipe
+	entry: "./js/index.js", // труба .pipe
 	output: {
 		filename: `./js/${filename("js")}`,
 		path: path.resolve(__dirname, "public"),
+		publicPath: "",
+	},
+	devServer: {
+		historyApiFallback: true,
+		contentBase: path.resolve(__dirname, "public"),
+		open: true,
+		compress: true,
+		hot: true,
+		port: 3000,
 	},
 	plugins: [
 		new HTMLWebpackPlugin({
@@ -29,12 +39,75 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: `./css/${filename("css")}`,
 		}),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, "src/others"),
+					to: path.resolve(__dirname, "public"),
+				},
+			],
+		}),
 	],
+	devtool: isProd ? false : "source-map",
 	module: {
 		rules: [
 			{
+				test: /\.html$/,
+				loader: "html-loader",
+			},
+			{
 				test: /\.css$/i,
-				use: [MiniCssExtractPlugin.loader, "css-loader"],
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							hmt: isDev,
+						},
+					},
+					"css-loader",
+				],
+			},
+			{
+				test: /\.s[ac]ss$/,
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							publicPath: (resourcePath, context) => {
+								return path.relative(path.dirname(resourcePath), context) + "/";
+							},
+						},
+					},
+					"css-loader",
+					"sass-loader",
+				],
+			},
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: ["babel-loader"],
+			},
+			{
+				test: /\.(?:|gif|png|jpg|jpeg|svg)$/,
+				use: [
+					{
+						loader: "file-loader",
+						options: {
+							name: `img/${filename("[ext]")}`,
+						},
+					},
+				],
+			},
+			{
+				test: /\.(?:|woff2)$/,
+				use: [
+					{
+						loader: "file-loader",
+						options: {
+							name: `fonts/${filename("[ext]")}`,
+						},
+					},
+				],
 			},
 		],
 	},
