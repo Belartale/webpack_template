@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Belartale/webpack_template#readme",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.1"
   },
