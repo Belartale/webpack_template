@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "dev": "cross-env NODE_ENV=development webpack --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,7 +19,11 @@
   },
   "homepage": "https://github.com/Belartale/webpack_template#readme",
   "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.3",
+    "css-loader": "^5.0.1",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.3.3",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.1"
   },
