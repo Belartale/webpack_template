@@ -12,7 +12,7 @@ const filename = (ext) =>
 module.exports = {
 	context: path.resolve(__dirname, "src"), // папка
 	mode: "development",
-	entry: "./js/index.js", // труба .pipe
+	entry: "./js/main.js", // труба .pipe
 	output: {
 		filename: `./js/${filename("js")}`,
 		path: path.resolve(__dirname, "public"),
@@ -33,7 +33,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				text: /\.css$/i,
+				test: /\.css$/i,
 				use: [MiniCssExtractPlugin.loader, "css-loader"],
 			},
 		],
