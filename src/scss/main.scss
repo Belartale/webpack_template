@@ -5,9 +5,12 @@
 @import "settings";
 
 p {
-	color: red;
-	font-size: 31px;
+  margin-top: 23px;
+  & {
+    position: relative;
+  }
 }
+
 body {
-	background-image: url("../img/img-webpack.png");
+  background-image: url("../img/img-webpack.png");
 }
