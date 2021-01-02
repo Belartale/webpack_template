@@ -1,4 +1,9 @@
-@import "~normalize.css";
+@import "mixins";
+@import "fonts";
+@import "others";
+@import "variables";
+@import "settings";
+
 p {
 	color: red;
 	font-size: 31px;
